@@ -1,5 +1,6 @@
 import shutil
 import os
+import asyncio
 
 def _save_file_to_server(uploaded_file, path=".", save_as="default"):
     extension = os.path.splitext(uploaded_file.filename)[-1]
@@ -9,3 +10,8 @@ def _save_file_to_server(uploaded_file, path=".", save_as="default"):
         shutil.copyfileobj(uploaded_file.file, buffer)
 
     return temp_file
+
+async def _delete_file_from_server(files):
+    for file in files:
+        if os.path.exists(file):
+            os.remove(file)
